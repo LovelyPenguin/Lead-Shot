@@ -73,6 +73,7 @@ public class LeadShotCalculater : MonoBehaviour
         transform.LookAt(Intercept(transform.position, _rigidbody.velocity, projectileSpeed, targetRigidbody.position, targetRigidbody.velocity), transform.up);
     }
 
+    #region 핵심 부분
     public Vector3 Intercept(
         Vector3 shooterPosition,
         Vector3 shooterVelocity,
@@ -86,8 +87,9 @@ public class LeadShotCalculater : MonoBehaviour
         t = InterceptTime(shotSpeed, targetRelativePosition, targetVelocity);
         InterceptTimeValue = t;
         return targetPosition + t * targetRelativeVelocity;
-    }
-
+    } 
+    
+    // 타겟까지의 충돌 시간 계산 부분
     public float InterceptTime(
         float shotSpeed,
         Vector3 targetRelativePosition,
@@ -147,10 +149,5 @@ public class LeadShotCalculater : MonoBehaviour
             return Mathf.Max(-b / (2f * a), 0f);
         }
     }
-
-    private void OnDrawGizmos()
-    {
-        Vector3 intercept = Intercept(transform.position, _rigidbody.velocity, projectileSpeed, targetRigidbody.position, targetRigidbody.velocity);
-        Gizmos.DrawSphere(intercept, 1.3f);
-    }
+    #endregion
 }
